@@ -104,6 +104,8 @@ conjunto<T, CMP> & conjunto<T, CMP>::operator= (const conjunto & org){
 
 
 // ITERADORES
+
+// ITERATOR
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::iterator conjunto<T, CMP>::begin(){
 	iterator it;
@@ -136,6 +138,7 @@ typename conjunto<T, CMP>::const_iterator conjunto<T, CMP>::cend() const{
 	return it;
 }
 
+// SECURE ITERATOR 
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::secure_iterator conjunto<T, CMP>::sbegin (){
 	secure_iterator it;
@@ -168,39 +171,54 @@ typename conjunto<T, CMP>::const_secure_iterator conjunto<T, CMP>::csend( ) cons
 	return it;
 }
 
+// IMPAR ITERATOR
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::impar_iterator conjunto<T, CMP>::ibegin(){
 	impar_iterator it;
 	it.elvector=&vm;
 	it.it=vm.begin();
 	// Si no es impar hacemos un ++ para tener la siguiente posicion impar
-	if(it.it%2==0)
+	if((*(it.it)).getPos()%2==0)
 		it++;
 
 	return it;
 }
 
-/*
-
-
-	POR AQUI!!!!!!!!!!!
-
-
-
-*/
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::const_impar_iterator conjunto<T, CMP>::cibegin( ) const{
+	const_impar_iterator it;
+	it.elvector=&vm;
+	it.it=vm.begin();
+	// Si no es impar hacemos un ++ para tener la siguiente posicion impar
+	if((*(it.it)).getPos()%2==0)
+		it++;
 
+	return it;
 }
 
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::impar_iterator conjunto<T, CMP>::iend(){
+	impar_iterator it;
+	it.elvector=&vm;
+	it.it=vm.end();
+	
+	if((*(it.it)).getPos()%2==0)
+		it--;
 
+	return it;
 }
 
 template <typename T, typename CMP>
 typename conjunto<T, CMP>::const_impar_iterator conjunto<T, CMP>::ciend( ) const{
+	const_impar_iterator it;
 
+	it.elvector=&vm;
+	it.it=vm.end();
+	
+	if((*(it.it)).getPos()%2==0)
+		it--;
+
+	return it;
 }
 
 
